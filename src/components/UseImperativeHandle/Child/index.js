@@ -2,9 +2,11 @@ import React, { forwardRef, useImperativeHandle, useState } from "react";
 
 const Child = (props, ref) => {
   const [isShow, setIsShow] = useState(false);
+  const [userDetails, setUserDetails] = useState(null);
 
   useImperativeHandle(ref, () => ({
     showMessage: (value) => setIsShow(value),
+    userDetails: (value) => setUserDetails(value),
   }));
 
   const hideMessage = () => {
@@ -13,10 +15,12 @@ const Child = (props, ref) => {
 
   return (
     <>
-      <h2>{isShow && "Welcome to useImperativeHandle"}</h2>
-      <button type="button" onClick={hideMessage}>
+      <h4>{isShow && "I Love ReactJs"}</h4>
+      <button type="button" onClick={() => hideMessage()}>
         Hide Message
       </button>
+      <p>{userDetails?.firstName}</p>
+      <p>{userDetails?.lastName}</p>
     </>
   );
 };

@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import UserProvider from "../../Context/userContext";
@@ -8,15 +9,8 @@ import StopWatchWithoutReducer from "../../components/StopWatchWithoutReducer";
 import CounterWithCustomHook from "../../components/CounterWithCustomHook";
 import ImageWithPreview from "../../components/ImageWithPreview";
 import CounterWithCustomUseReducerHook from "../../components/CounterWithCustomUseReducerHook";
-// import APIRequest from "../../components/APIRequest";
-// import ConditionalRendering from "../../components/ConditionalRendering";
+import Parent from "../../components/UseImperativeHandle/Parent";
 import useHover from "../../Hooks/useHover";
-// import UseRefExample from "../../components/UseRefExample";
-// import CountWithOne from "../../HOC/CountWithOne";
-// import CountWithTwo from "../../HOC/CountWithTwo";
-// import Posts from "../../HOC/Post";
-// import FormWithUseReducer from "../../components/FormWithUseReducer";
-// import Parent from "../../components/UseImperativeHandle/Parent";
 
 const Home = () => {
   const [ref, isHovered] = useHover();
@@ -48,6 +42,9 @@ const Home = () => {
         </Grid>
         <Grid item xs={6} md={4}>
           <ImageWithPreview />
+        </Grid>
+        <Grid item xs={6} md={4}>
+          <Parent />
         </Grid>
         {/* <Grid item xs={6} md={4}>
           <APIRequest />

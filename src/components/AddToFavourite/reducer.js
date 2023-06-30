@@ -4,9 +4,16 @@ import {
   ADD_TO_FAVOURITE,
   REMOVE_TO_FAVOURITE,
   TAB_CHANGES,
-} from "./actions";
+} from "./actionsTypes";
 
-export const reducer = (state, action) => {
+export const initialState = {
+  productList: [],
+  favouriteList: [],
+  isLoader: true,
+  value: 0,
+};
+
+export const productReducer = (state, action) => {
   switch (action.type) {
     case GET_SUCCESS:
       return { ...state, productList: action.payload, isLoader: false };

@@ -15,7 +15,9 @@ const Dashboard = () => {
       localStorage.getItem("isLoggedIn") === null ||
       localStorage.getItem("isLoggedIn") === ""
     ) {
-      navigate("/login");
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000);
     }
   }, [navigate]);
 
@@ -42,10 +44,6 @@ const Dashboard = () => {
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h4">
-          Welcome to {state?.username}
-        </Typography>
-
         {/* <Grid item xs={12} md={6}>
           {generate(
             <List>
@@ -69,18 +67,36 @@ const Dashboard = () => {
             </List>
           )}
         </Grid> */}
-
-        <Button
-          type="button"
-          color="error"
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-          onClick={logOutHandler}
-        >
-          Logout
-        </Button>
       </Box>
-      <AddToFavourite />
+      {localStorage.getItem("isLoggedIn") === null ||
+      localStorage.getItem("isLoggedIn") === "" ? (
+        <h1
+          className="center"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+        >
+          You need to login to access dashboard
+        </h1>
+      ) : (
+        <>
+          <Typography component="h1" variant="h4">
+            Welcome to {state?.username}
+          </Typography>
+          <Button
+            type="button"
+            color="error"
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            onClick={logOutHandler}
+          >
+            Logout
+          </Button>
+          <AddToFavourite />
+        </>
+      )}
     </Container>
   );
 };

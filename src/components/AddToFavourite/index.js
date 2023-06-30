@@ -12,14 +12,14 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import CircularProgress from "@mui/material/CircularProgress";
 import { makeStyles } from "@material-ui/styles";
-import { reducer } from "./reducer";
+import { productReducer, initialState } from "./reducer";
 import {
   GET_SUCCESS,
   GET_ERROR,
   ADD_TO_FAVOURITE,
   REMOVE_TO_FAVOURITE,
   TAB_CHANGES,
-} from "./actions";
+} from "./actionsTypes";
 
 const LINES_TO_SHOW = 2;
 const useStyles = makeStyles({
@@ -59,16 +59,9 @@ const TabPanel = (props) => {
   );
 };
 
-let initialState = {
-  productList: [],
-  favouriteList: [],
-  isLoader: true,
-  value: 0,
-};
-
 const AddToFavourite = () => {
   const classes = useStyles();
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(productReducer, initialState);
 
   const getProduct = async () => {
     try {
@@ -114,17 +107,18 @@ const AddToFavourite = () => {
     getProduct();
   }, []);
 
-  const renderCards = (data, isFavourite) => {
+  const renderProductCard = (data, isFavourite) => {
     return (
       <>
-        {data.length ? (
-          data.map((product) => (
+        {data?.length ? (
+          data?.map((product) => (
             <Card sx={{ maxWidth: 205, margin: "8px" }} key={product.id}>
               <CardMedia
                 component="img"
                 alt={product.brand}
                 height="140"
                 image={`${product.thumbnail}`}
+                key={product.id}
               />
               <CardContent>
                 <Typography gutterBottom component="div">
@@ -183,7 +177,7 @@ const AddToFavourite = () => {
           aria-label="Product tabs"
         >
           {TABS_DATA.map((data) => (
-            <Tab label={data.label} />
+            <Tab label={data.label} key={data.id} />
           ))}
         </Tabs>
       </Box>
@@ -200,7 +194,7 @@ const AddToFavourite = () => {
             {state.isLoader ? (
               <CircularProgress />
             ) : (
-              renderCards(state.productList, false)
+              renderProductCard(state?.productList, false)
             )}
           </Grid>
         </Box>
@@ -215,7 +209,7 @@ const AddToFavourite = () => {
             alignItems="center"
             sx={{ mt: 2 }}
           >
-            {renderCards(state.favouriteList, true)}
+            {renderProductCard(state?.favouriteList, true)}
           </Grid>
         </Box>
       </TabPanel>
