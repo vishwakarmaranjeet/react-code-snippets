@@ -7,6 +7,7 @@ const colorPalette = [
   { id: 4, name: "purple" },
   { id: 5, name: "orange" },
 ];
+
 const ConditionalRendering = () => {
   const [data, setData] = useState("");
 
