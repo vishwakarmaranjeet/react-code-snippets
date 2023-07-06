@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import UserProvider from "../../Context/userContext";
-import Consumer from "../../components/Consumer";
-import CounterWithReducer from "../../components/CounterWithReducer";
-import StopWatchWithReducer from "../../components/StopWatchWithReducer";
-import StopWatchWithoutReducer from "../../components/StopWatchWithoutReducer";
-import CounterWithCustomHook from "../../components/CounterWithCustomHook";
-import ImageWithPreview from "../../components/ImageWithPreview";
-import CounterWithCustomUseReducerHook from "../../components/CounterWithCustomUseReducerHook";
-import Parent from "../../components/UseImperativeHandle/Parent";
-import useHover from "../../Hooks/useHover";
+import Consumer from "components/Consumer";
+import CounterWithReducer from "components/CounterWithReducer";
+import StopWatchWithReducer from "components/StopWatchWithReducer";
+import StopWatchWithoutReducer from "components/StopWatchWithoutReducer";
+import CounterWithCustomHook from "components/CounterWithCustomHook";
+import ImageWithPreview from "components/ImageWithPreview";
+import CounterWithCustomUseReducerHook from "components/CounterWithCustomUseReducerHook";
+import Parent from "components/UseImperativeHandle/Parent";
+import useHover from "Hooks/useHover";
 
 const Home = () => {
   const [ref, isHovered] = useHover();
@@ -46,16 +46,6 @@ const Home = () => {
         <Grid item xs={6} md={4}>
           <Parent />
         </Grid>
-        {/* <Grid item xs={6} md={4}>
-          <APIRequest />
-        </Grid>
-        <UseRefExample />
-        <ConditionalRendering />
-        <CountWithOne />
-        <CountWithTwo />
-        <Posts />
-        <FormWithUseReducer />
-        <Parent /> */}
       </Grid>
     </Box>
   );

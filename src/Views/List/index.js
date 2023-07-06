@@ -1,5 +1,5 @@
 import React from "react";
-import ListCounter from "../../components/ListCounter";
+import ListCounter from "components/ListCounter";
 
 const List = () => {
   return <ListCounter />;
