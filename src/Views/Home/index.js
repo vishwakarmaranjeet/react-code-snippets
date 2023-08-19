@@ -11,6 +11,25 @@ import ImageWithPreview from "components/ImageWithPreview";
 import CounterWithCustomUseReducerHook from "components/CounterWithCustomUseReducerHook";
 import Parent from "components/UseImperativeHandle/Parent";
 import useHover from "Hooks/useHover";
+import UseAutoComplete from "components/UseAutoComplete";
+
+const moviesList = [
+  { label: "The Shawshank Redemption", year: 1994, actor: "ABC" },
+  { label: "The Godfather", year: 1972, actor: "CBD" },
+  { label: "The Godfather: Part II", year: 1974, actor: "GHJ" },
+  { label: "The Dark Knight", year: 2008, actor: "YUI" },
+  { label: "12 Angry Men", year: 1957, actor: "ERT" },
+  { label: "Schindler's List", year: 1993, actor: "HJI" },
+  { label: "Pulp Fiction", year: 1994, actor: "ASD" },
+];
+
+const finalList = moviesList.map((item) => {
+  return {
+    label: `${item.label} ${item.year}, ${item.actor}`,
+  };
+});
+
+console.log(finalList);
 
 const Home = () => {
   const [ref, isHovered] = useHover();
@@ -19,6 +38,7 @@ const Home = () => {
       <h2 style={{ color: isHovered ? "red" : "#333" }} ref={ref}>
         Welcome to ReactJs
       </h2>
+      <UseAutoComplete moviesList={finalList} />
       <Grid container spacing={2}>
         <Grid item xs={6} md={4}>
           <CounterWithCustomHook />

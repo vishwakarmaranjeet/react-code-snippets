@@ -1,15 +1,13 @@
+import Styles from "./PageNotFound.module.scss";
+
+export function clx(...classes) {
+  return classes.join(" ");
+}
+
 const PageNotFound = () => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        width: "100%",
-        alignItems: "center",
-        paddingTop: "50px",
-      }}
-    >
-      <h3>404 page not found....</h3>
+    <div className={clx(Styles.container, Styles.border)}>
+      <h3>404 page not found.!!!</h3>
     </div>
   );
 };
