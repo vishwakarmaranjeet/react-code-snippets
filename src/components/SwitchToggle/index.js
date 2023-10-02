@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Switch from "@mui/material/Switch";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
@@ -22,13 +22,14 @@ const SwitchToggle = () => {
   const handleClose = () => setOpen(false);
 
   const proceedHandler = () => {
+    throw new Error("Error has occured");
     setChecked((prev) => !prev);
     handleClose(false);
   };
+
   const handleChange = () => {
     setOpen(true);
-  };
-
+  }
   return (
     <>
       <Modal
