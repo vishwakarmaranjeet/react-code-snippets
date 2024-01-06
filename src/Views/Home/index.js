@@ -14,6 +14,7 @@ import useHover from "Hooks/useHover";
 import UseAutoComplete from "components/UseAutoComplete";
 import SwitchToggle from "components/SwitchToggle";
 import { MOVIES_LIST } from "utils/constants";
+import ErrorBoundary from "components/ErrorBoundary";
 
 const Home = () => {
   const [ref, isHovered] = useHover();
@@ -24,7 +25,9 @@ const Home = () => {
       </h2>
       <Grid container spacing={2}>
         <Grid item xs={6} md={4}>
-          <CounterWithCustomHook />
+          <ErrorBoundary>
+            <CounterWithCustomHook />
+          </ErrorBoundary>
         </Grid>
         <Grid item xs={6} md={4}>
           <CounterWithReducer />
