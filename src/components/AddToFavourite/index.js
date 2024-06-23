@@ -1,6 +1,7 @@
 import React, { useReducer } from "react";
 import { useEffect } from "react";
 import Tabs from "@mui/material/Tabs";
+import styled from "@material-ui/styles";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -20,6 +21,7 @@ import {
   REMOVE_TO_FAVOURITE,
   TAB_CHANGES,
 } from "./actionsTypes";
+import { type } from "@testing-library/user-event/dist/type";
 
 const LINES_TO_SHOW = 2;
 const useStyles = makeStyles({
@@ -78,28 +80,12 @@ const AddToFavourite = () => {
     dispatch({ type: TAB_CHANGES, payload: newValue });
   };
 
-  // Add to favourite
-  const addToFavoriteHandler = (item) => {
-    dispatch({
-      type: ADD_TO_FAVOURITE,
-      payload: item,
-    });
-  };
-
-  // Remove from favorite
-  const removeFavoriteHandler = (product) => {
-    dispatch({
-      type: REMOVE_TO_FAVOURITE,
-      payload: product,
-    });
-  };
-
+  const handleProductAddRemove = (isAddProduct, product) => {
+    dispatch({ type: isAddProduct ? ADD_TO_FAVOURITE : REMOVE_TO_FAVOURITE, payload: product })
+  }
+  
   const isExists = (product) => {
-    if (
-      state.favouriteList.filter((item) => item.id === product.id).length > 0
-    ) {
-      return true;
-    }
+    if (state.favouriteList.filter((item) => item.id === product.id).length > 0) return true
     return false;
   };
 
@@ -135,27 +121,29 @@ const AddToFavourite = () => {
               <CardActions>
                 {!isFavourite ? (
                   <Button
+                    size="small"
                     type="button"
+                    variant="outlined"
                     color={isExists(product) ? "error" : "primary"}
-                    variant="contained"
                     sx={{ mt: 0, mb: 1 }}
                     onClick={() =>
                       isExists(product)
-                        ? removeFavoriteHandler(product)
-                        : addToFavoriteHandler(product)
+                        ? handleProductAddRemove(false, product)
+                        : handleProductAddRemove(true, product)
                     }
                   >
-                    {isExists(product) ? "Remove" : "Add"}
+                    {isExists(product) ? "Remove to favorite" : "Add to favorite"}
                   </Button>
                 ) : (
                   <Button
+                    size="small"
                     type="button"
                     color="error"
-                    variant="contained"
+                    variant="outlined"
                     sx={{ mt: 0, mb: 1 }}
-                    onClick={() => removeFavoriteHandler(product)}
+                    onClick={() => handleProductAddRemove(false, product)}
                   >
-                    Remove
+                    Remove to favorite
                   </Button>
                 )}
               </CardActions>

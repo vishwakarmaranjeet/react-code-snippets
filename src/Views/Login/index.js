@@ -8,10 +8,13 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
+const toLowerCase = (string) => {
+  return string.toLocaleLowerCase();
+}
 const Login = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState({ username: "", password: "" });
-
+  const [errorMessage, setErrorMessage] = useState("");
   const userInputHandler = (e) => {
     setUserData({
       ...userData,
@@ -19,17 +22,20 @@ const Login = () => {
     });
   };
 
-  const submitUserDataHandler = () => {
-    if (userData.username === "" && userData.password === "") {
-      return;
-    }
-    if (
-      userData.username.toLocaleLowerCase() === "admin" &&
-      userData.password.toLocaleLowerCase() === "admin"
-    ) {
-      localStorage.setItem("isLoggedIn", true);
-      navigate("/dashboard", { state: { username: userData.username } });
-    }
+  const redirectToDashboard = () => {
+    localStorage.setItem("isLoggedIn", true);
+    setErrorMessage("");
+    navigate("/dashboard", { state: { username: userData.username } });
+  }
+  const loginHandler = () => {
+    const { username, password } = userData
+    if (username === "" || password === "") {
+      setErrorMessage("Please enter your username & password");
+    } else if (password !== "admin" || password !== "admin"){
+      setErrorMessage("Wrong username & password");
+    } else {
+      redirectToDashboard();
+    };
   };
 
   return (
@@ -49,6 +55,7 @@ const Login = () => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
+          <p style={{ color: "#d32f2f" }}>{errorMessage}</p>
           <Box sx={{ mt: 1 }}>
             <TextField
               margin="normal"
@@ -59,6 +66,7 @@ const Login = () => {
               autoComplete="username"
               autoFocus
               onChange={userInputHandler}
+              error={errorMessage}
             />
             <TextField
               margin="normal"
@@ -69,13 +77,14 @@ const Login = () => {
               id="password"
               onChange={userInputHandler}
               autoComplete="current-password"
+              error={errorMessage}
             />
             <Button
               type="button"
               fullWidth
-              variant="contained"
+              variant="outlined"
               sx={{ mt: 3, mb: 2 }}
-              onClick={submitUserDataHandler}
+              onClick={loginHandler}
             >
               Sign In
             </Button>

@@ -9,30 +9,19 @@ import AddToFavourite from "components/AddToFavourite";
 const Dashboard = () => {
   let { state } = useLocation();
   let navigate = useNavigate();
-
+  const isLocalStorageEmpty = localStorage.getItem("isLoggedIn") === null || localStorage.getItem("isLoggedIn") === "";
   useEffect(() => {
-    if (
-      localStorage.getItem("isLoggedIn") === null ||
-      localStorage.getItem("isLoggedIn") === ""
-    ) {
+    if (isLocalStorageEmpty) {
       setTimeout(() => {
         navigate("/login");
       }, 3000);
     }
   }, [navigate]);
 
-  const logOutHandler = () => {
+  const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
     navigate("/login");
   };
-
-  // function generate(element) {
-  //   return [0, 1, 2].map((value) =>
-  //     React.cloneElement(element, {
-  //       key: value,
-  //     })
-  //   );
-  // }
 
   return (
     <Container component="main">
@@ -44,34 +33,9 @@ const Dashboard = () => {
           alignItems: "center",
         }}
       >
-        {/* <Grid item xs={12} md={6}>
-          {generate(
-            <List>
-              <ListItem
-                secondaryAction={
-                  <IconButton edge="end" aria-label="delete">
-                    <DeleteIcon />
-                  </IconButton>
-                }
-              >
-                <ListItemAvatar>
-                  <Avatar>
-                    <FolderIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  primary="Single-line item"
-                  secondary={secondary ? "Secondary text" : null}
-                />
-              </ListItem>
-            </List>
-          )}
-        </Grid> */}
       </Box>
-      {localStorage.getItem("isLoggedIn") === null ||
-      localStorage.getItem("isLoggedIn") === "" ? (
-        <h1
-          className="center"
+      {isLocalStorageEmpty? (
+        <h1 className="center"
           style={{
             display: "flex",
             justifyContent: "center",
@@ -82,15 +46,14 @@ const Dashboard = () => {
         </h1>
       ) : (
         <>
-          <Typography component="h1" variant="h4">
-            Welcome to {state?.username}
-          </Typography>
+          <Typography component="h1" variant="h4"> Welcome to {state?.username}</Typography>
           <Button
+            size="small"
             type="button"
             color="error"
-            variant="contained"
+            variant="outlined"
             sx={{ mt: 3, mb: 2 }}
-            onClick={logOutHandler}
+            onClick={handleLogout}
           >
             Logout
           </Button>
