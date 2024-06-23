@@ -1,7 +1,6 @@
 import React, { useReducer } from "react";
 import { useEffect } from "react";
 import Tabs from "@mui/material/Tabs";
-import styled from "@material-ui/styles";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -21,7 +20,6 @@ import {
   REMOVE_TO_FAVOURITE,
   TAB_CHANGES,
 } from "./actionsTypes";
-import { type } from "@testing-library/user-event/dist/type";
 
 const LINES_TO_SHOW = 2;
 const useStyles = makeStyles({
@@ -83,7 +81,7 @@ const AddToFavourite = () => {
   const handleProductAddRemove = (isAddProduct, product) => {
     dispatch({ type: isAddProduct ? ADD_TO_FAVOURITE : REMOVE_TO_FAVOURITE, payload: product })
   }
-  
+
   const isExists = (product) => {
     if (state.favouriteList.filter((item) => item.id === product.id).length > 0) return true
     return false;
@@ -93,30 +91,16 @@ const AddToFavourite = () => {
     getProduct();
   }, []);
 
-  const renderProductCard = (data, isFavourite) => {
+  const displayProducts = (data, isFavourite) => {
     return (
       <>
         {data?.length ? (
           data?.map((product) => (
             <Card sx={{ maxWidth: 205, margin: "8px" }} key={product.id}>
-              <CardMedia
-                component="img"
-                alt={product.brand}
-                height="140"
-                image={`${product.thumbnail}`}
-                key={product.id}
-              />
+              <CardMedia component="img" alt={product.brand} image={`${product.thumbnail}`} key={product.id} />
               <CardContent>
-                <Typography gutterBottom component="div">
-                  {product.brand}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  className={classes.multiLineEllipsis}
-                >
-                  {product.description}
-                </Typography>
+                <Typography gutterBottom component="div">{product.brand}</Typography>
+                <Typography variant="body2" color="text.secondary" className={classes.multiLineEllipsis}>{product.description}</Typography>
               </CardContent>
               <CardActions>
                 {!isFavourite ? (
@@ -126,11 +110,7 @@ const AddToFavourite = () => {
                     variant="outlined"
                     color={isExists(product) ? "error" : "primary"}
                     sx={{ mt: 0, mb: 1 }}
-                    onClick={() =>
-                      isExists(product)
-                        ? handleProductAddRemove(false, product)
-                        : handleProductAddRemove(true, product)
-                    }
+                    onClick={() => isExists(product) ? handleProductAddRemove(false, product) : handleProductAddRemove(true, product)}
                   >
                     {isExists(product) ? "Remove to favorite" : "Add to favorite"}
                   </Button>
@@ -182,7 +162,7 @@ const AddToFavourite = () => {
             {state.isLoader ? (
               <CircularProgress />
             ) : (
-              renderProductCard(state?.productList, false)
+              displayProducts(state?.productList, false)
             )}
           </Grid>
         </Box>
@@ -197,7 +177,7 @@ const AddToFavourite = () => {
             alignItems="center"
             sx={{ mt: 2 }}
           >
-            {renderProductCard(state?.favouriteList, true)}
+            {displayProducts(state?.favouriteList, true)}
           </Grid>
         </Box>
       </TabPanel>
