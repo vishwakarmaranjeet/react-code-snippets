@@ -13,6 +13,7 @@ import Grid from "@mui/material/Grid";
 import CircularProgress from "@mui/material/CircularProgress";
 import { makeStyles } from "@material-ui/styles";
 import { productReducer, initialState } from "./reducer";
+// import useFetch from "Hooks/useFetch";
 import {
   GET_SUCCESS,
   GET_ERROR,
@@ -61,6 +62,8 @@ const TabPanel = (props) => {
 
 const AddToFavourite = () => {
   const classes = useStyles();
+  // const { data, loading, error } = useFetch(API_URL);
+  // console.log(data, loading, error);
   const [state, dispatch] = useReducer(productReducer, initialState);
 
   const getProduct = async () => {

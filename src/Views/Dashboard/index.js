@@ -24,7 +24,7 @@ const Dashboard = () => {
     const interval = setInterval(()=> {
       setCurrentTime(new Date());
     }, 1000);
-     return () => clearInterval(interval);
+    return () => clearInterval(interval);
   }, []);
 
   const handleLogout = () => {
