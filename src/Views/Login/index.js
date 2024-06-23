@@ -31,7 +31,7 @@ const Login = () => {
     const { username, password } = userData
     if (username === "" || password === "") {
       setErrorMessage("Please enter your username & password");
-    } else if (password !== "admin" || password !== "admin"){
+    } else if (toLowerCase(password) !== "admin" || toLowerCase(password) !== "admin"){
       setErrorMessage("Wrong username & password");
     } else {
       redirectToDashboard();
