@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -7,9 +7,11 @@ import Button from "@mui/material/Button";
 import AddToFavourite from "components/AddToFavourite";
 
 const Dashboard = () => {
+  const [time, setCurrentTime] = useState(new Date());
   let { state } = useLocation();
   let navigate = useNavigate();
   const isLocalStorageEmpty = localStorage.getItem("isLoggedIn") === null || localStorage.getItem("isLoggedIn") === "";
+  
   useEffect(() => {
     if (isLocalStorageEmpty) {
       setTimeout(() => {
@@ -17,6 +19,13 @@ const Dashboard = () => {
       }, 3000);
     }
   }, [navigate]);
+
+  useEffect(()=> {
+    const interval = setInterval(()=> {
+      setCurrentTime(new Date());
+    }, 1000);
+     return () => clearInterval(interval);
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
@@ -47,6 +56,7 @@ const Dashboard = () => {
       ) : (
         <>
           <Typography component="h1" variant="h4"> Welcome to {state?.username}</Typography>
+          <Typography component="h2" variant="h6">{time.toLocaleTimeString()}</Typography>
           <Button
             size="small"
             type="button"
